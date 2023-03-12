@@ -18,7 +18,44 @@
 		<xsl:apply-templates select="//metadonnees"/>
 		Mise en forme par Tarassov Elie, Habran Mathieu (B3221)
 		<hr/><hr/>
+		Countries where more than two languages are spoken:
+		<br/>
+		<xsl:for-each select="//country">
+			<xsl:if test="count(languages/*)>2">
+			•<xsl:value-of select="country_name/common_name"/>:
 
+				<xsl:for-each select="languages/*">
+					
+					<xsl:value-of select="."/>  (<xsl:value-of select="name(.)"/>)
+					<xsl:choose>
+						<xsl:when test="position() = last()"><br/>
+						</xsl:when>
+						<xsl:otherwise>,
+						</xsl:otherwise>
+					</xsl:choose>
+					
+				</xsl:for-each>
+			</xsl:if>
+		</xsl:for-each>
+		
+		Countries with the most neighbors:
+		<xsl:for-each select="//country">
+			<xsl:sort select="count(borders/neighbour)" data-type = "number" order="descending"/>
+			<xsl:if test="position()=1">
+				<xsl:value-of select="country_name/common_name"/>
+				<xsl:variable name="max_neighbors" select="count(borders/neighbour)">assigned</xsl:variable>	
+			</xsl:if>
+
+			C'est cette partie qui crash ie quand je veux utilise max_neighbors hors du if d'avant
+			<xsl:if test="count(borders/neighbour) = count(position(1)/borders/neighbour)">
+				, <xsl:value-of select="country_name/common_name"/>
+			</xsl:if>
+			
+		</xsl:for-each>
+		
+		
+		
+		<hr/><hr/>
 		<xsl:for-each select="//continent[not(.=preceding::continent)]">
 			<xsl:variable name="current_continent" select="."></xsl:variable>
 
