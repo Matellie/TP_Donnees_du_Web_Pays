@@ -18,11 +18,14 @@
 		<xsl:apply-templates select="//metadonnees"/>
 		Mise en forme par Tarassov Elie, Habran Mathieu (B3221)
 		<hr/><hr/>
-		Countries where more than two languages are spoken:
 		<br/>
+
+		Countries where more than 2 languages are spoken:<br/>
+		<ul>
 		<xsl:for-each select="//country">
 			<xsl:if test="count(languages/*)>2">
-			•<xsl:value-of select="country_name/common_name"/>:
+			<li>
+			<xsl:value-of select="country_name/common_name"/>:
 
 				<xsl:for-each select="languages/*">
 					
@@ -35,27 +38,27 @@
 					</xsl:choose>
 					
 				</xsl:for-each>
+			</li>
 			</xsl:if>
 		</xsl:for-each>
-		
+		</ul>
+		<br/>
+
+
 		Countries with the most neighbors:
 		<xsl:for-each select="//country">
-			<xsl:sort select="count(borders/neighbour)" data-type = "number" order="descending"/>
+			<xsl:sort select="count(borders/neighbour)" data-type ="number" order="descending"/>
+			
 			<xsl:if test="position()=1">
-				<xsl:value-of select="country_name/common_name"/>
-				<xsl:variable name="max_neighbors" select="count(borders/neighbour)">assigned</xsl:variable>	
+				<xsl:variable name="max_neighbors" select="count(borders/neighbour)"></xsl:variable>
+				<xsl:value-of select="country_name/common_name"/>, nb de voisins : <xsl:value-of select="$max_neighbors"/><br/>
+				<br/>
 			</xsl:if>
 
-			C'est cette partie qui crash ie quand je veux utilise max_neighbors hors du if d'avant
-			<xsl:if test="count(borders/neighbour) = count(position(1)/borders/neighbour)">
-				, <xsl:value-of select="country_name/common_name"/>
-			</xsl:if>
-			
 		</xsl:for-each>
 		
 		
-		
-		<hr/><hr/>
+		<hr/>
 		<xsl:for-each select="//continent[not(.=preceding::continent)]">
 			<xsl:variable name="current_continent" select="."></xsl:variable>
 
