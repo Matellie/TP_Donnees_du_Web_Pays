@@ -235,28 +235,12 @@ function captureMouse(baliseElementARecuperer) {
         countries[i].addEventListener("mouseover", function(){
             this.style.fill = "red";
 
-            // Chargement du fichier XSL a l'aide de XMLHttpRequest synchrone 
-            
-
-            //creation d'un processeur XSL
             var xsltProcessor = new XSLTProcessor();
-
-            // Importation du .xsl
             xsltProcessor.importStylesheet(xslDocument);
-
-            // Parametre
             xsltProcessor.setParameter(null, "param_ref_type", this.getAttribute("id"));
-
-            // Chargement du fichier XML a l'aide de XMLHttpRequest synchrone 
             var xmlDocument = chargerHttpXML("countriesTP.xml");
-
-            // Creation du document XML transforme par le XSL
             var newXmlDocument = xsltProcessor.transformToDocument(xmlDocument);
-
-            // Recherche du parent (dont l'id est "here") de l'element a remplacer dans le document HTML courant
             var elementHtmlParent = window.document.getElementById("question8");
-            
-            // inserer l'element transforme dans la page html
             elementHtmlParent.innerHTML = newXmlDocument.getElementsByTagName(baliseElementARecuperer)[0].innerHTML;
 
         });
@@ -295,11 +279,8 @@ function autocompleteQ3(baliseElementARecuperer, countryCode) {
     elementHtmlParent.innerHTML = newXmlDocument.getElementsByTagName(baliseElementARecuperer)[0].innerHTML;
 }
 
-function currencyInfoQ8(baliseElementARecuperer) {
-
+function currencyInfoQ8() {
     var countries = window.document.getElementsByTagName("path");
-
-    var xslDocument = chargerHttpXML("infosPays.xsl");
 
     for(let i = 0; i<countries.length; i++)
     {
@@ -316,11 +297,51 @@ function displayCurrency() {
     elementHtmlParent.innerHTML = json.currencies[0].name;
 
     var monnaies = window.document.getElementsByClassName("monnaie");
+
     for(let i = 0; i<monnaies.length; i++) {
         monnaies[i].classList.remove("hidden");
     }
 }
 
-function colorCountryGreen(baliseElementARecuperer, countryCode) {
-    
+function colorCountryGreen(baliseElementARecuperer) {
+    var bouton3 = window.document.getElementById("myButton3");
+
+    bouton3.addEventListener("click", displayLanguageSpeakers);
+
+}
+
+function displayLanguageSpeakers() { 
+    var countries = window.document.getElementsByTagName("path");
+
+    for(let h = 0; h<countries.length; h++)
+    {
+        countries[h].style.fill = '#CCCCCC';
+    }
+
+    countryCode = window.document.getElementById('countryCodeInput').value;
+    baliseElementARecuperer = 'element_a_recuperer';
+
+    var xslDocument = chargerHttpXML("chercheLangue.xsl");
+    var xsltProcessor = new XSLTProcessor();
+    xsltProcessor.importStylesheet(xslDocument);
+    xsltProcessor.setParameter(null, "param_ref_type", countryCode);
+    var xmlDocument = chargerHttpXML("countriesTP.xml");
+    var newXmlDocument = xsltProcessor.transformToDocument(xmlDocument);
+    var elementHtmlParent = window.document.getElementById("question11");
+
+    elementHtmlParent.innerHTML = newXmlDocument.getElementsByTagName(baliseElementARecuperer)[0].innerHTML;
+
+    var countriesGreen = window.document.getElementsByName("question11Codes");
+
+    for(let i = 0; i<countriesGreen.length; i++)
+    {
+        for(let j = 0; j<countries.length; j++)
+        {
+            if(countries[j].id == countriesGreen[i].innerHTML)
+            {
+                countries[j].style.fill = 'green';
+            }
+        }
+    }
+
 }
