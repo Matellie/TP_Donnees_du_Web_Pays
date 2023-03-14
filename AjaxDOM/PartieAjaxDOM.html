@@ -1,0 +1,128 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title>TP 3IF Ajax</title>
+    <meta name="author" content="Elod EGYED-ZSIGMOND">
+
+    <script type="text/javascript" src="partieJavascript.js"></script>
+
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body><p>Fichier a modifier/completer</p>
+    <p>
+        Changes the page background color to blue and the button text color to white:<br/>
+        <input name="button1" type="button" id="myButton1" onClick="setBackgroundColor('blue');setButtonTextColor('white');" value="Button 1" />
+        <br/><br/>
+
+        Resets the background color to white:<br/>
+        <input name="button2" type="button" id="myButton2" onClick="setBackgroundColor('white');" value="Button 2" />
+        <br/><br/>
+
+        Displays the official name and the capital of the country whose code is selected in the input field<br/>
+        <input name="button3" type="button" id="myButton3" onClick="displayOfficNameAndCap('countriesTP.xml', 'cherchePays.xsl', 'element_a_recuperer', document.getElementById('countryCodeInput').value);" value="Button 3" />
+        <div id="question9"><input name="text" type="text" id="countryCodeInput" value=""/></div>
+        <div id="question3">
+            <p style="color: red; font-weight: bold;">Official name and capital</canvas></p>
+        </div>
+        <br/><br/>
+
+        Load and display the svg drawing contained in the file: exemple.svg<br/>
+        <input name="button4" type="button" id="myButton4" onClick="loadAndDisplaySVG();" value="Button 4" />
+        <div id="question4"></div>
+        <br/><br/>
+
+        Makes the elements of the svg file "clickable" and displays the value of their attribute title when they are clicked<br/>
+        <input name="button5" type="button" id="myButton5" onClick="makeClickableSVG();" value="Button 5" />
+        <div id="question5"></div>
+        <br/><br/>
+
+        Load and display the world map in svg contained in the file worldHigh.svg<br/>
+        <input name="button6" type="button" id="myButton6" onClick="displayWorldMapSVG();" value="Button 6" />
+        <div id="question8"></div><br/>
+        <div id="question6"></div>
+        <br/><br/>
+        
+        Makes countries clickable and displays their attribute countryname on click<br/>
+        <input name="button7" type="button" id="myButton7" onClick="makeClickableCountries();" value="Button 7" />
+        <div id="question7"></div>
+        <br/><br/>
+
+        Capture the passing (mouseover) and exiting (mouseleave) event of the mouse over the countries on the map<br/>
+        By the way: change their color and display their: name, capital, languages spoken and flag in a table above the map<br/>
+        <input name="button8" type="button" id="myButton8" onClick="captureMouse('element_a_recuperer');" value="Button 8" />
+        <br/><br/>
+        
+        Complete the input field of button 3 with an autocomplete function (use a datalist)<br/>
+        <input name="button9" type="button" id="myButton9" onClick="autocompleteQ3('element_a_recuperer', document.getElementById('countryCodeInput').value);" value="Button 9" />
+        <br/><br/>
+
+        Complete the information displayed in button 8 with the name of the country's currency (use the site https://restcountries.com/v2/alpha/{code})<br/>
+        <input name="button10" type="button" id="myButton10" onClick="currencyInfoQ8('element_a_recuperer');" value="Button 10" />
+        <br/><br/>
+
+        Color in green on the map the countries where the languages of the country selected in the input field of button 3 are also spoken<br/>
+        <input name="button11" type="button" id="myButton11" onClick="colorCountryGreen('element_a_recuperer', document.getElementById('countryCodeInput').value);" value="Button 11" />
+        <br/><br/>
+
+        Show a random country name and ask the user to click on the corresponding country on the map. Show : True or False according to the click<br/>
+        <input name="button12" type="button" id="myButton12" onClick="randomCountry();" value="Button 12" />
+        <br/><br/>
+
+
+
+
+
+
+
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        Remplace le texte "LES NOMS" avec le contenu du champ de saisi: <br/>
+		<input name="button" type="button" id="myButton1" onClick="setNom(document.getElementById('myText1').value);" value="1. AJAX simple" />
+        <input name="text" type="text" id="myText1" value="Toto" />
+        <br/><br/>
+
+        Charge le fichier Employees.xml en ajax, cherche du contenu en javascript et remplace le texte "LES NOMS" avec le sr�sultat
+		<br />
+        <input name="button2" type="button" id="myButton2" onClick="Bouton2_ajaxEmployees('Employees.xml');" value="2. AJAX avec Employees.xml" />
+       
+		<br />
+		<br/>
+
+		Charge me un fichier XML contenant des r�f�rences bibliographiques, une feuille de style, applique la feuille de stymle sur le fichier XML et affiche le r�sultat en bas de la page:
+		<br/>
+        <input name="button3" type="button" id="myButton2" onClick="Bouton3_ajaxBibliographie('ajax.bib.xml','ajax.bib.xsl','element_a_recuperer');" value="3. AJAX avec ajax.bib.xml/ajax.bib.xsl pour les livres (Book)" />
+
+		<br />
+		<br/>
+		Charge me un fichier XML contenant des r�f�rences bibliographiques, une feuille de style, r�cup�re le choix de type de bibliographie, le passe en param�tre � la feuille de style, applique la feuille de stymle sur le fichier XML et affiche le r�sultat en bas de la page:
+		<br/>
+		 <label for="cars">Type de r�f�rence biblio :</label>
+
+		<select name="cars" id="type_ref_bibliographiques">
+		  <option value="Book">Livre</option>
+		  <option value="ArticleInJournal">Article dans un journal</option>
+		  <option value="Proceedings">Article dans conf�rence</option>
+		</select> 
+		<br/>
+        <input name="button4" type="button" id="myButton4" onClick="Bouton4_ajaxBibliographieAvecParametres('ajax.bib.xml','ajax.bibParam.xsl','element_a_recuperer', document.getElementById('type_ref_bibliographiques').value);" value="4. AJAX avec ajax.bib.xml/ajax.bibParam.xsl et un param�tre" />
+
+		</p>
+    <div>
+        <p>Les noms sont : <br/>
+            <span id="id_nom_a_remplacer" style="color: red; font-weight: bold;">LES NOMS (Cet &eacute;l&eacute;ment va &ecirc;tre remplac&eacute; par les noms) </span>.</p>
+    </div>
+    <div id="id_element_a_remplacer">
+        <p style="color: red; font-weight: bold;">Cet &eacute;l&eacute;ment va &ecirc;tre remplac&eacute; par une bibliographie en XML mise en forme par une feuille de style XSLT...</p>
+    </div>
+
+
+</body>
+
+</html>
