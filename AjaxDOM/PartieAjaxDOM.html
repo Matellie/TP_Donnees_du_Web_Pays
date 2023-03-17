@@ -4,7 +4,7 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <title>TP 3IF Ajax</title>
-    <meta name="author" content="Elod EGYED-ZSIGMOND">
+    <meta name="author" content="Mathieu et Elie <3">
 
     <script type="text/javascript" src="partieJavascript.js"></script>
 
@@ -75,7 +75,16 @@
 
         Show a random country name and ask the user to click on the corresponding country on the map. Show : True or False according to the click<br/>
         <input name="button12" type="button" id="myButton12" onClick="randomCountry();" value="Button 12" />
-        <br/><br/>
+		<div id="question12"><div/>
+		<br/><br/>
+		
+		Ranking of the countries with the most timezones: top 5 countries are displayed on the map ! (Countries with no timezones are excluded: they should have at least tried)<br/>
+        <input name="button13" type="button" id="myButton13" onClick="displayTimezones();" value="Button 13" />
+        <div id="question13" class="hidden"> 
+			<table id="question13bis" border="3" align="center" style="width: 100%">
+            </table> 
+		<div/>
+		<br/><br/>
 
 </body>
 

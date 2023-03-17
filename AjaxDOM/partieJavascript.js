@@ -54,99 +54,23 @@ function chargerHttpJSON(jsonDocumentUrl) {
 
     return responseData;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function Bouton2_ajaxEmployees(xmlDocumentUrl) {
 
-    var xmlDocument = chargerHttpXML(xmlDocumentUrl);
+//-------------------------------------------------------------------------------------------------------------------------//
+//global variable
+var cca2Rand = "";
 
-    //extraction des noms � partir du document XML (avec une feuille de style ou en javascript)
-    var lesNoms = xmlDocument.getElementsByTagName("LastName");
 
-    // Parcours de la liste des noms avec une boucle for et 
-    // construction d'une chaine de charact�res contenant les noms s�par�s par des espaces 
-    // Pour avoir la longueur d'une liste : attribut 'length'
-    // Acc�s au texte d'un noeud "LastName" : NOM_NOEUD.firstChild.nodeValue
-    var chaineDesNoms = "";
-    for (i = 0; i < lesNoms.length; i++) {
-        if (i > 0) {
-            chaineDesNoms = chaineDesNoms + ", ";
-        }
-        chaineDesNoms = chaineDesNoms + lesNoms[i].firstChild.nodeValue + " ";
-    }
-
-    // Appel (ou recopie) de la fonction setNom(...) ou bien autre fa�on de modifier le texte de l'�l�ment "span"
-    setNom(chaineDesNoms);
-
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function Bouton3_ajaxBibliographie(xmlDocumentUrl, xslDocumentUrl, baliseElementARecuperer) {
-
-    // Chargement du fichier XSL � l'aide de XMLHttpRequest synchrone 
-    var xslDocument = chargerHttpXML(xslDocumentUrl);
-
-	//cr�ation d'un processuer XSL
-    var xsltProcessor = new XSLTProcessor();
-
-    // Importation du .xsl
-    xsltProcessor.importStylesheet(xslDocument);
-
-    // Chargement du fichier XML � l'aide de XMLHttpRequest synchrone 
-    var xmlDocument = chargerHttpXML(xmlDocumentUrl);
-
-    // Cr�ation du document XML transform� par le XSL
-    var newXmlDocument = xsltProcessor.transformToDocument(xmlDocument);
-
-    // Recherche du parent (dont l'id est "here") de l'�l�ment � remplacer dans le document HTML courant
-    var elementHtmlParent = window.document.getElementById("id_element_a_remplacer");
-    
-	// ins�rer l'�lement transform� dans la page html
-    elementHtmlParent.innerHTML=newXmlDocument.getElementsByTagName(baliseElementARecuperer)[0].innerHTML;
-	
-
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function Bouton4_ajaxBibliographieAvecParametres(xmlDocumentUrl, xslDocumentUrl, baliseElementARecuperer, paramXSL_type_reference) {
-
-    // Chargement du fichier XSL � l'aide de XMLHttpRequest synchrone 
-    var xslDocument = chargerHttpXML(xslDocumentUrl);
-
-	//cr�ation d'un processuer XSL
-    var xsltProcessor = new XSLTProcessor();
-
-    // Importation du .xsl
-    xsltProcessor.importStylesheet(xslDocument);
-	
-	//passage du param�tre � la feuille de style
-	xsltProcessor.setParameter("", "param_ref_type", paramXSL_type_reference);
-
-    // Chargement du fichier XML � l'aide de XMLHttpRequest synchrone 
-    var xmlDocument = chargerHttpXML(xmlDocumentUrl);
-
-    // Cr�ation du document XML transform� par le XSL
-    var newXmlDocument = xsltProcessor.transformToDocument(xmlDocument);
-
-    // Recherche du parent (dont l'id est "here") de l'�l�ment � remplacer dans le document HTML courant
-    var elementHtmlParent = window.document.getElementById("id_element_a_remplacer");
-    
-	// ins�rer l'�lement transform� dans la page html
-    elementHtmlParent.innerHTML=newXmlDocument.getElementsByTagName(baliseElementARecuperer)[0].innerHTML;
-	
-
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function Bouton4_ajaxEmployeesTableau(xmlDocumentUrl, xslDocumentUrl) {
-    //commenter la ligne suivante qui affiche la bo�te de dialogue!
-    alert("Fonction � compl�ter...");
-}
-
+//question 1 and 2
 function setBackgroundColor(color) {
     window.document.body.style.backgroundColor = color;
 }
 
+//question 1
 function setButtonTextColor(color) {
     window.document.getElementById('myButton1').style.color = color;
 }
 
+//question 3
 function displayOfficNameAndCap(xmlDocumentUrl, xslDocumentUrl, baliseElementARecuperer, countryCode) {
 
     // Chargement du fichier XSL a l'aide de XMLHttpRequest synchrone 
@@ -175,6 +99,7 @@ function displayOfficNameAndCap(xmlDocumentUrl, xslDocumentUrl, baliseElementARe
 	
 }
 
+//question 4
 function loadAndDisplaySVG() {
     var exempleSVG = chargerHttpXML("exemple.svg");
 
@@ -185,6 +110,7 @@ function loadAndDisplaySVG() {
 
 }
 
+//question 5
 function makeClickableSVG() {
 
     var cercle = window.document.getElementById("leCercle");
@@ -203,6 +129,7 @@ function makeClickableSVG() {
 
 }
 
+//question 6
 function displayWorldMapSVG() {
     var exempleSVG = chargerHttpXML("worldHigh.svg");
 
@@ -213,18 +140,27 @@ function displayWorldMapSVG() {
 
 }
 
+//question 7 and 12
 function makeClickableCountries() {
     var countries = window.document.getElementsByTagName("path");
     
     for(let i = 0; i<countries.length; i++)
     {
         countries[i].addEventListener("click", function(){
+			
+			// question 7
             window.document.getElementById("question7").innerHTML = this.getAttribute("countryname");
+			
+			//question 12
+			if(cca2Rand != ""){
+				window.document.getElementById("question12").innerHTML = (this.getAttribute("id") == cca2Rand);
+			}
         });
     }
     
 }
 
+//question 8
 function captureMouse(baliseElementARecuperer) {
     var countries = window.document.getElementsByTagName("path");
 
@@ -252,6 +188,7 @@ function captureMouse(baliseElementARecuperer) {
 
 }
 
+//question 9
 function autocompleteQ3(baliseElementARecuperer, countryCode) {
 
     // Chargement du fichier XSL � l'aide de XMLHttpRequest synchrone 
@@ -279,6 +216,7 @@ function autocompleteQ3(baliseElementARecuperer, countryCode) {
     elementHtmlParent.innerHTML = newXmlDocument.getElementsByTagName(baliseElementARecuperer)[0].innerHTML;
 }
 
+//question 10
 function currencyInfoQ8() {
     var countries = window.document.getElementsByTagName("path");
 
@@ -289,6 +227,7 @@ function currencyInfoQ8() {
     
 }
 
+//question 10
 function displayCurrency() {
     var json = chargerHttpJSON("https://restcountries.com/v2/alpha/" + this.getAttribute("id"));
 
@@ -303,6 +242,7 @@ function displayCurrency() {
     }
 }
 
+//question 11
 function colorCountryGreen(baliseElementARecuperer) {
     var bouton3 = window.document.getElementById("myButton3");
 
@@ -310,6 +250,7 @@ function colorCountryGreen(baliseElementARecuperer) {
 
 }
 
+//question 11
 function displayLanguageSpeakers() { 
     var countries = window.document.getElementsByTagName("path");
 
@@ -342,6 +283,75 @@ function displayLanguageSpeakers() {
                 countries[j].style.fill = 'green';
             }
         }
+    }
+
+}
+
+//question 12
+function randomCountry(){
+	
+	var rand = Math.floor(Math.random() * 256);
+	
+	//Assuming button 6 has already been pressed
+	var country = window.document.getElementsByTagName("path")[rand];
+	cca2Rand = country.getAttribute("id");
+	console.log(country.getAttribute("countryname"));
+
+	window.document.getElementById("question12").innerHTML = country.getAttribute("countryname");
+	
+}
+
+//question 13
+function displayTimezones() {
+    window.document.getElementById("question13").classList.remove("hidden");
+
+    var countries = window.document.getElementsByTagName("path");
+    var nbTimezones = new Array();
+
+    for(let i = 0; i<countries.length; i++)
+    {
+        try {
+            var json = chargerHttpJSON("https://restcountries.com/v2/alpha/" + countries[i].getAttribute("id"));
+            nbTimezones.push(json.timezones.length);
+        } catch (error) {
+            nbTimezones.push(0);
+            console.error(error);
+        }
+    }
+    countriesArray = Array.from(countries);
+
+    countriesArray.sort(function(a, b) {
+        return nbTimezones[countriesArray.indexOf(b)] - nbTimezones[countriesArray.indexOf(a)];
+    });
+
+    nbTimezones.sort(function(a,b){ 
+        return a - b;
+    }).reverse();
+
+    // Countries est trie
+    // nbTimezones est trie
+    var elementHtmlParent = window.document.getElementById("question13bis");
+    elementHtmlParent.innerHTML += "<tr><th style='width: 20%'>Name</th><th style='width: 20%'>NB of timezones</th><th style='width: 20%'>Flag</th></tr>";
+
+    for(let i = 0; i<10; i++) {
+        countryCode = countriesArray[i].id;
+        baliseElementARecuperer = 'element_a_recuperer';
+		
+		console.log(countries[i].id);
+		
+		for(let j = 0; j<countries.length; j++){
+			if(countryCode == countries[j].id) countries[j].style.fill = '#B8860B'
+		}
+
+        var xslDocument = chargerHttpXML("infosTimezones.xsl");
+        var xsltProcessor = new XSLTProcessor();
+        xsltProcessor.importStylesheet(xslDocument);
+        xsltProcessor.setParameter(null, "code", countryCode);
+        xsltProcessor.setParameter(null, "nbTime", nbTimezones[i]);
+        var xmlDocument = chargerHttpXML("countriesTP.xml");
+        var newXmlDocument = xsltProcessor.transformToDocument(xmlDocument);
+        
+        elementHtmlParent.innerHTML += newXmlDocument.getElementsByTagName(baliseElementARecuperer)[0].innerHTML;
     }
 
 }
