@@ -69,7 +69,7 @@
 					
 					<h4><xsl:value-of select="."/> (<xsl:value-of select="count(//country[./infosContinent/subregion=current()])"/> pays)</h4>
 					
-					<table border="3" align="center">
+					<table border="3" align="center" style="width: 100%">
 						<tr>
 							<th>N°</th>
 							<th>Name</th>
